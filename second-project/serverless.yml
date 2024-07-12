@@ -1,0 +1,30 @@
+service: second-project
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  memorySize: 512
+  timeout: 10 #30 is the max time for timeout
+  environment:
+    TEST_VAR: TEST_VAR_VALUE - ${self:provider.stage}
+  
+plugins:
+  - serverless-offline
+
+functions:
+  user:
+    handler: src/functions/user/handler.create
+    description: 'Create a new user'
+    environment:
+      TEST_VAR_FS: 'test_var_fs'
+    
+    events:
+      - http:
+          path: users
+          method: post
+          cors: true
+      
