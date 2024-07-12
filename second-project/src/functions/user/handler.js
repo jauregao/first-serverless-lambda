@@ -1,3 +1,4 @@
+import 'dotenv/config'
 export async function create(event, context) {
   const response = {
     statusCode: 200,
@@ -5,8 +6,6 @@ export async function create(event, context) {
       'Access-Control-allow-Origin': '*'
     },
     body: JSON.stringify({
-      message: `${process.env.TEST_VAR}`,
-      test_var_fs: `${process.env.TEST_VAR_FS}`
     })
   }
 
